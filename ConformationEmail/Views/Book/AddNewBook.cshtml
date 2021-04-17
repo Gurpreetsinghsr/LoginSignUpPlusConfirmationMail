@@ -1,0 +1,48 @@
+﻿@{
+    Layout = "_Layout";
+}
+@model BookModel
+
+@if (ViewBag.isSuccess)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Congratulations!</strong> You have added a new Book sdfsdf.
+        <br />
+        <a asp-controller="Book" asp-action="GetBook" asp-route-Id="@ViewBag.BookId">ClickHere</a>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+
+<form method="post" enctype="multipart/form-data" asp-action="AddNewBook" asp-controller="Book">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Auther" class="control-label"></label>
+        <input asp-for="Auther" class="form-control" />
+        <span asp-validation-for="Auther" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Details" class="control-label"></label>
+        <textarea asp-for="Details" class="form-control"></textarea>
+        <span asp-validation-for="Details" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <input type="submit" value="Add book" class="btn btn-primary" />
+    </div>
+</form>
