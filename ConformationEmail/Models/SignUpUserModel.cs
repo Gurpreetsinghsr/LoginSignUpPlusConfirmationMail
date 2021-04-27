@@ -23,7 +23,9 @@ namespace ConformationEmail.Models
         [Required(ErrorMessage = "Please enter a strong password")]
         [Compare("ConfirmPassword", ErrorMessage = "Password does not match")]
         [Display(Name = "Password")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
+
 
         [Required(ErrorMessage = "Please confirm your password")]
         [Display(Name = "Confirm Password")]

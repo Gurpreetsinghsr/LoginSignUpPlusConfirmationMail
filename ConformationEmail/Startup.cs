@@ -1,4 +1,7 @@
+using autoMail.Models;
+using autoMail.Service;
 using ConformationEmail.Data;
+using ConformationEmail.Helpers;
 using ConformationEmail.Models;
 using ConformationEmail.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -32,9 +35,22 @@ namespace ConformationEmail
                 options => options.UseSqlServer("Server=localhost;Database=Pizzastore;Integrated Security= True;"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<BookStoreContext>();
+                .AddEntityFrameworkStores<BookStoreContext>().AddDefaultTokenProviders();
 
+            services.ConfigureApplicationCookie(config =>
+           {
+               config.LoginPath = "/login";
+           });
+
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicatioUserClaimsPrincipleFactory>();
             services.AddControllersWithViews();
+            services.AddScoped<IEmailService, EmailService>();
+            services.Configure<SMTPConfigModel>(Configuration.GetSection("SMTPConfig"));
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = true;
+            });
+
 #if DEBUG
             services.AddRazorPages().AddRazorRuntimeCompilation();
 #endif

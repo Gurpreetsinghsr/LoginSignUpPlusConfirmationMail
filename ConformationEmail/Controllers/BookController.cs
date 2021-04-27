@@ -1,5 +1,6 @@
 ﻿using ConformationEmail.Models;
 using ConformationEmail.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ConformationEmail.Controllers
 {
+    [Authorize]
     public class BookController : Controller
     {
         private readonly BookRepository _bookRepository ;
@@ -35,6 +37,7 @@ namespace ConformationEmail.Controllers
             ViewBag.BookId = BookId;
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult>  AddNewBook(BookModel bookModel)
         {
@@ -45,11 +48,6 @@ namespace ConformationEmail.Controllers
             }
             return View();
         }
-
-
-
-
-
 
     }
 }
